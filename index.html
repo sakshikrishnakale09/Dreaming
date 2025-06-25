@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Dreaming About You</title>
+  <link href="https://fonts.googleapis.com/css?family=Sacramento:400|Poppins:400,700&display=swap" rel="stylesheet">
+  <style>
+  :root {
+    --main-pink: #f8bbd0;
+    --main-purple: #b39ddb;
+    --main-white: #fff;
+    --main-shadow: rgba(0,0,0,0.07);
+    --main-heart: #ff6f91;
+    --main-accent: #e1bee7;
+    --font-header: 'Sacramento', cursive;
+    --font-body: 'Poppins', sans-serif;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, var(--main-pink) 0%, var(--main-purple) 100%);
+    min-height: 100vh;
+    font-family: var(--font-body);
+    color: #2d0036;
+    overflow-x: hidden;
+  }
+  .main-content {
+    max-width: 100vw;
+    min-height: 80vh;
+    padding: 3vw 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .page {
+    display: none;
+    width: 97vw;
+    max-width: 900px;
+    margin: 0 auto;
+    min-height: 60vh;
+    position: relative;
+    animation: fadeIn 1s;
+  }
+  .page.active {
+    display: block;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(40px);}
+    to { opacity: 1; transform: translateY(0);}
+  }
+  /* Home */
+  .home-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2em;
+    gap: 2em;
+  }
+  .dream-title {
+    font-family: var(--font-header);
+    font-size: 3.5em;
+    color: #c2185b;
+    text-shadow: 0 4px 22px var(--main-shadow);
+    margin: 0;
+  }
+  .hero-img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 6px 30px #91267e22;
+    border: 4px solid #fff;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 8px #b39ddb99);
+  }
+  .dream-sub {
+    font-size: 1.5em;
+    color: #7b1fa2;
+    font-weight: 500;
+    text-align: center;
+    max-width: 400px;
+  }
+  .hearts-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  /* Inside My Heart */
+  .heart-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2em;
+    margin-top: 2em;
+    min-height: 60vh;
+    position: relative;
+  }
+  .big-heart {
+    width: 120px;
+    height: 110px;
+    background: var(--main-heart);
+    position: relative;
+    border-radius: 60px 60px 0 0;
+    transform: rotate(-45deg);
+    box-shadow: 0 5px 60px #ff6f9166;
+    margin-bottom: 1em;
+    animation: pulse 1.6s infinite;
+  }
+  .big-heart:before,
+  .big-heart:after {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 110px;
+    background: var(--main-heart);
+    border-radius: 60px 60px 0 0;
+  }
+  .big-heart:before {
+    left: 60px;
+    top: 0;
+  }
+  .big-heart:after {
+    left: 0;
+    top: -60px;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1) rotate(-45deg);}
+    50% { transform: scale(1.07) rotate(-45deg);}
+  }
+  .petals {
+    position: absolute;
+    top: 80px; left: 50%; transform: translateX(-50%);
+    width: 220px; height: 120px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .thoughts {
+    margin-top: 2.5em;
+    font-size: 1.3em;
+    color: #9c27b0;
+    text-align: center;
+    font-family: var(--font-header);
+    background: rgba(255,255,255,0.42);
+    border-radius: 22px;
+    padding: 1em 1.6em;
+    box-shadow: 0 2px 18px #b39ddb33;
+  }
+  /* Gallery */
+  #gallery h2 {
+    font-family: var(--font-header);
+    color: #ad1457;
+    font-size: 2.5em;
+    margin-bottom: 0.4em;
+    text-align: center;
+    letter-spacing: 2px;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+    gap: 1.2em;
+    padding: 1em 0.7em;
+    margin: 0 auto;
+    max-width: 850px;
+  }
+  .gallery-grid img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: 0 3px 20px #b39ddb44;
+    transition: transform 0.22s cubic-bezier(.57,1.47,.63,.86), box-shadow 0.2s;
+    cursor: pointer;
+    border: 3px solid #fff;
+  }
+  .gallery-grid img:hover {
+    transform: scale(1.08) rotate(-2deg);
+    box-shadow: 0 6px 22px #ff6f916c;
+    border: 3px solid #ff6f91;
+  }
+  /* Letter Page */
+  #letter {
+    min-height: 70vh;
+  }
+  .letter-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.13;
+    overflow: hidden;
+  }
+  .letter-bg .bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 100%;
+  }
+  .letter-content {
+    position: relative;
+    z-index: 1;
+    padding: 2em 1.2em;
+    max-width: 700px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.72);
+    border-radius: 22px;
+    box-shadow: 0 3px 22px #b39ddb33;
+    margin-top: 2em;
+  }
+  .letter-content h2 {
+    font-family: var(--font-header);
+    font-size: 2.4em;
+    color: #c2185b;
+    margin-bottom: 0.6em;
+    text-align: center;
+  }
+  .typewriter {
+    font-size: 1.4em;
+    font-family: 'Sacramento', cursive;
+    color: #3e0960;
+    white-space: pre-line;
+    border-left: 3px solid #ff6f91;
+    padding-left: 1em;
+    min-height: 80px;
+    background: rgba(255,255,255,0.29);
+    border-radius: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    box-shadow: 0 1px 8px #ff6f9140;
+  }
+  /* Slideshow */
+  .slideshow-container {
+    position: relative;
+    width: 98%;
+    max-width: 700px;
+    margin: 2em auto;
+    background: rgba(255,255,255,0.55);
+    border-radius: 18px;
+    box-shadow: 0 2px 14px #b39ddb55;
+    padding: 1.6em 0.6em 2em 0.6em;
+    overflow: hidden;
+  }
+  .slideshow {
+    width: 100%;
+    height: 320px;
+    position: relative;
+  }
+  .slide {
+    display: none;
+    width: 100%;
+    height: 320px;
+    position: absolute;
+    left: 0; top: 0;
+    opacity: 0;
+    transition: opacity 0.7s;
+  }
+  .slide.active {
+    display: block;
+    opacity: 1;
+    animation: dreamy 2s;
+  }
+  @keyframes dreamy {
+    from { filter: blur(7px) brightness(0.8); }
+    to { filter: blur(0) brightness(1); }
+  }
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 13px;
+    box-shadow: 0 2px 24px #b39ddb33;
+  }
+  .slideshow-caption {
+    position: absolute;
+    bottom: 24px; left: 0; width: 100%;
+    text-align: center;
+    font-family: var(--font-header);
+    font-size: 1.6em;
+    color: #ad1457;
+    text-shadow: 0 2px 14px #fff8;
+    background: rgba(255,255,255,0.04);
+  }
+  .slide-prev, .slide-next {
+    position: absolute;
+    top: 47%;
+    background: #fff6;
+    color: #ad1457;
+    border: none;
+    font-size: 2.1em;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 44px; height: 44px;
+    box-shadow: 0 1px 8px #ff6f9150;
+    transition: background 0.2s;
+    z-index: 2;
+  }
+  .slide-prev { left: 8px;}
+  .slide-next { right: 8px;}
+  .slide-prev:hover, .slide-next:hover { background: #ff6f91df; color: #fff; }
+  #music-control {
+    position: fixed;
+    right: 26px;
+    bottom: 22px;
+    z-index: 99;
+    background: #fff6;
+    border-radius: 50%;
+    box-shadow: 0 1px 16px #b39ddb44;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #music-toggle {
+    border: none;
+    background: none;
+    font-size: 2em;
+    cursor: pointer;
+    color: #9c27b0;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background 0.2s;
+  }
+  #music-toggle:hover {
+    background: #ff6f9122;
+  }
+  /* Floating hearts */
+  .floating-hearts {
+    position: fixed;
+    left: 0; top: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+  }
+  /* Page Switcher Buttons */
+  .page-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 1.8em;
+    margin: 2.5em auto 0 auto;
+    position: relative;
+    z-index: 5;
+  }
+  .switch-btn {
+    background: linear-gradient(90deg, #ffb7c5 80%, #f8bbd0 100%);
+    color: #b00055;
+    font-family: var(--font-header);
+    font-weight: 700;
+    font-size: 1.5em;
+    border: none;
+    border-radius: 1.5em;
+    padding: 0.65em 2.2em;
+    margin: 0 0.1em;
+    box-shadow: 0 2px 10px #ff6f9140;
+    cursor: pointer;
+    transition: background 0.19s, color 0.16s, transform 0.17s;
+    outline: none;
+  }
+  .switch-btn:active {
+    background: #ffc2d8;
+    color: #b00055;
+    transform: scale(0.98);
+  }
+  .switch-btn:disabled {
+    background: #fce4ec;
+    color: #bdbdbd;
+    cursor: not-allowed;
+  }
+  /* Responsive */
+  @media (max-width: 650px) {
+    .hero-img { width: 120px; height: 120px;}
+    .gallery-grid img { height: 110px;}
+    .slideshow, .slide { height: 160px;}
+    .letter-content { padding: 1em 0.5em;}
+    .switch-btn { font-size: 1.02em; padding: 0.55em 1.3em;}
+  }
+  /* Petal and floating heart animation CSS injected by JS */
+  </style>
+</head>
+<body>
+  <audio id="bg-music" src="https://files.catbox.moe/y2ueft" autoplay loop></audio>
+  <div id="music-control">
+    <button id="music-toggle" title="Play/Pause Music">🔊</button>
+  </div>
+  <div class="main-content">
+    <!-- Page 1: Home -->
+    <section id="home" class="page active">
+      <div class="hearts-bg"></div>
+      <div class="home-content">
+        <h1 class="dream-title">I Miss You...</h1>
+        <img src="https://i.ibb.co/b56r0sQ/IMG-4066.jpg" alt="Her Portrait" class="hero-img fade-in">
+        <p class="dream-sub">Sometimes you are the only thought in my dreams...</p>
+      </div>
+    </section>
+    <!-- Page 2: Inside My Heart -->
+    <section id="inside" class="page">
+      <div class="heart-center">
+        <div class="big-heart"></div>
+        <div class="petals"></div>
+        <div class="thoughts">
+          <p>Every heartbeat is a memory of you.</p>
+          <p>Missing you is like breathing—constant and silent.</p>
+          <p>Sometimes, my heart whispers your name, hoping you'll hear it.</p>
+          <p>Every night, my dreams are painted with your smile.</p>
+        </div>
+      </div>
+    </section>
+    <!-- Page 3: Gallery -->
+    <section id="gallery" class="page">
+      <h2>Memories Gallery</h2>
+      <div class="gallery-grid"></div>
+    </section>
+    <!-- Page 4: A Letter to You -->
+    <section id="letter" class="page">
+      <div class="letter-bg">
+        <img src="https://i.ibb.co/Ld4cvLh/IMG-5851.jpg" alt="Background" class="bg-img">
+      </div>
+      <div class="letter-content">
+        <h2>From My Heart</h2>
+        <p class="typewriter" id="typed-letter"></p>
+      </div>
+    </section>
+    <!-- Page 5: Dream Sequence -->
+    <section id="dream" class="page">
+      <div class="slideshow-container">
+        <div class="slideshow"></div>
+        <div class="slideshow-caption"></div>
+        <button class="slide-prev">&#10094;</button>
+        <button class="slide-next">&#10095;</button>
+      </div>
+    </section>
+    <!-- Page Switcher Buttons -->
+    <div class="page-switcher">
+      <button class="switch-btn" id="prev-btn">&larr; Previous</button>
+      <button class="switch-btn" id="next-btn">Next &rarr;</button>
+    </div>
+  </div>
+  <!-- Floating hearts animation -->
+  <div class="floating-hearts"></div>
+  <script>
+  // All images (fixed URLs)
+  const IMAGES = [
+    "https://i.ibb.co/b56r0sQ/IMG-4066.jpg",
+    "https://i.ibb.co/qTh0SR8/IMG-2258.jpg",
+    "https://i.ibb.co/V0Rcq3kV/IMG-4083.jpg",
+    "https://i.ibb.co/kgR3nvY/IMG-4089.jpg",
+    "https://i.ibb.co/TBhGXcC/939b3a43-cfeb-4486-a9b0-dc0daca955eb.jpg",
+    "https://i.ibb.co/Ld4cvLh/IMG-5851.jpg",
+    "https://i.ibb.co/rfbTpq7/IMG-8843.jpg",
+    "https://i.ibb.co/jk5T57s/IMG-2263.jpg",
+    "https://i.ibb.co/SY7nsc3/IMG-2266.jpg",
+    "https://i.ibb.co/kgFSPP3/IMG-3713.jpg",
+    "https://i.ibb.co/vrWSS5G/IMG-3716.jpg",
+    "https://i.ibb.co/1fcNWCrc/IMG-1599.jpg",
+    "https://i.ibb.co/Y7wf1fJ/939b3a43-cfeb-4486-a9b0-dc0daca955eb.jpg",
+    "https://i.ibb.co/QF6hcKz/IMG-2256.jpg",
+    "https://i.ibb.co/mCgv9Yj/IMG-4088.jpg",
+    "https://i.ibb.co/d4K7fzY/IMG-4085.jpg",
+    "https://i.ibb.co/m5QpPyH/69866bed-8a0e-4f29-9d1c-1984055ea4c6.jpg",
+    "https://i.ibb.co/z00PdTZ/IMG-8843.jpg",
+    "https://i.ibb.co/qLMX8kP/IMG-8587.jpg",
+    "https://i.ibb.co/3y2Mwy2/IMG-2259.jpg",
+    "https://i.ibb.co/SDSpJ0D/74022-DD7-8-A77-499-B-AD48-B434418-A07-DF.png",
+    "https://i.ibb.co/XxdqwCP/IMG-2265.jpg",
+    "https://i.ibb.co/fY44jnj/IMG-3682.jpg",
+    "https://i.ibb.co/1GKpzWh/IMG-3728.jpg"
+  ];
+  const SLIDESHOW_CAPTIONS = [
+    "You are the dream I never want to wake up from.",
+    "Every memory with you is a treasure in my heart.",
+    "Your smile lights up my dreams.",
+    "Missing you more with every heartbeat.",
+    "You are the poetry my heart keeps writing.",
+    "Our moments, forever in my mind.",
+    "Love you beyond words.",
+    "Every picture, a thousand memories.",
+    "You are my peace in this crazy world.",
+    "My heart whispers your name every night.",
+    "Forever wishing you could see into my heart.",
+    "The more I miss you, the closer I feel to you."
+  ];
+  // Multi-page navigation logic
+  const PAGES = ["home","inside","gallery","letter","dream"];
+  let currentPage = 0;
+  function showPage(idx) {
+    document.querySelectorAll('.page').forEach((el,i) =>
+      el.classList.toggle('active', i === idx)
+    );
+    document.getElementById('prev-btn').disabled = (idx === 0);
+    document.getElementById('next-btn').disabled = (idx === PAGES.length-1);
+    // Letter typewriter trigger
+    if(PAGES[idx]==="letter") setTimeout(runTypewriter, 400);
+  }
+  document.getElementById('prev-btn').addEventListener('click', ()=>{
+    if(currentPage>0) showPage(--currentPage);
+  });
+  document.getElementById('next-btn').addEventListener('click', ()=>{
+    if(currentPage<PAGES.length-1) showPage(++currentPage);
+  });
+  // Allow left/right arrow keys for navigation
+  document.addEventListener('keydown', (e)=>{
+    if(e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA") return;
+    if(e.key==="ArrowLeft") document.getElementById('prev-btn').click();
+    if(e.key==="ArrowRight") document.getElementById('next-btn').click();
+  });
+  // Initial page
+  showPage(currentPage);
+  // Gallery
+  const galleryGrid = document.querySelector('.gallery-grid');
+  if (galleryGrid) {
+    IMAGES.forEach(url => {
+      let img = document.createElement('img');
+      img.src = url;
+      img.alt = "Memory";
+      galleryGrid.appendChild(img);
+    });
+  }
+  // Slideshow
+  let currentSlide = 0;
+  const slideshow = document.querySelector('.slideshow');
+  const captionBox = document.querySelector('.slideshow-caption');
+  if (slideshow) {
+    IMAGES.forEach((url, i) => {
+      let div = document.createElement('div');
+      div.className = 'slide';
+      if (i === 0) div.classList.add('active');
+      let img = document.createElement('img');
+      img.src = url;
+      div.appendChild(img);
+      slideshow.appendChild(div);
+    });
+    function showSlide(idx) {
+      let slides = document.querySelectorAll('.slide');
+      slides.forEach(s => s.classList.remove('active'));
+      slides[idx].classList.add('active');
+      captionBox.innerText = SLIDESHOW_CAPTIONS[idx % SLIDESHOW_CAPTIONS.length];
+    }
+    document.querySelector('.slide-prev').onclick = () => {
+      currentSlide = (currentSlide - 1 + IMAGES.length) % IMAGES.length;
+      showSlide(currentSlide);
+    };
+    document.querySelector('.slide-next').onclick = () => {
+      currentSlide = (currentSlide + 1) % IMAGES.length;
+      showSlide(currentSlide);
+    };
+    showSlide(currentSlide);
+  }
+  // Floating Hearts Animation
+  const floatingHearts = document.querySelector('.floating-hearts');
+  function randomBetween(a,b){return Math.random()*(b-a)+a;}
+  function createHeart(){
+    let heart = document.createElement('div');
+    heart.className = 'floating-heart';
+    let size = randomBetween(18,38);
+    heart.style.width = `${size}px`;
+    heart.style.height = `${size}px`;
+    heart.style.left = `${randomBetween(0,100)}vw`;
+    heart.style.animationDuration = `${randomBetween(6,14)}s`;
+    heart.style.filter = `blur(${randomBetween(0,1.2)}px)`;
+    heart.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 32 29.6"><path d="M23.6,0c-2.6,0-5,1.3-6.6,3.3C15.4,1.3,13,0,10.4,0C4.7,0,0,4.7,0,10.4c0,6.1,5.7,11,14.3,18.8l1.7,1.5l1.7-1.5C26.3,21.4,32,16.5,32,10.4C32,4.7,27.3,0,23.6,0z" fill="#ff6f91" /></svg>`;
+    floatingHearts.appendChild(heart);
+    setTimeout(()=>floatingHearts.removeChild(heart),16000);
+  }
+  setInterval(createHeart, 800);
+  // Petals Animation for Inside My Heart
+  const petalsDiv = document.querySelector('.petals');
+  if (petalsDiv) {
+    function createPetal() {
+      let p = document.createElement('div');
+      p.className = 'petal';
+      let size = randomBetween(8,22);
+      p.style.width = `${size}px`;
+      p.style.height = `${size*1.2}px`;
+      p.style.left = `${randomBetween(20,80)}%`;
+      p.style.animationDuration = `${randomBetween(5,11)}s`;
+      p.style.opacity = randomBetween(0.6,1);
+      petalsDiv.appendChild(p);
+      setTimeout(()=>petalsDiv.removeChild(p),12000);
+    }
+    setInterval(createPetal, 500);
+  }
+  // Petal/floating heart animation CSS
+  const styleSheet=document.createElement("style");
+  styleSheet.innerHTML=`
+  .petal{
+    position:absolute;
+    top:0;
+    background:linear-gradient(135deg,#ffb7c5 60%,#fff0 100%);
+    border-radius: 60% 40% 50% 50%/40% 60% 50% 50%;
+    opacity:0.8;
+    pointer-events:none;
+    animation:petal-fall linear;
+  }
+  @keyframes petal-fall{
+    0%{transform:translateY(0) rotate(0);}
+    100%{transform:translateY(120px) rotate(90deg);}
+  }
+  .floating-heart{
+    position:absolute;
+    bottom:-30px;
+    will-change:transform;
+    opacity:0.85;
+    animation:floatUp linear;
+  }
+  @keyframes floatUp{
+    0%{transform:translateY(0) scale(1);}
+    80%{opacity:0.95;}
+    100%{transform:translateY(-110vh) scale(0.85); opacity:0;}
+  }
+  `;
+  document.head.appendChild(styleSheet);
+  // Music Control
+  const music = document.getElementById('bg-music');
+  const musicBtn = document.getElementById('music-toggle');
+  musicBtn.onclick = () => {
+    if (music.paused) {
+      music.play();
+      musicBtn.textContent = "🔊";
+    } else {
+      music.pause();
+      musicBtn.textContent = "🔇";
+    }
+  };
+  music.addEventListener('play', () => musicBtn.textContent = "🔊");
+  music.addEventListener('pause', () => musicBtn.textContent = "🔇");
+  // ---- Letter page typewriter effect with calligraphy ----
+  const letterText = `Yaar ly kasa tri vattay ly athvun yete re tujhi brr pn nhi vatte tula sangycha v4krto but tujhi condition bghun asa vatta kasa explain kru me swatala baba la bollo me but baba bolle 2divas ajun kaam aahe so sry yaar i love you so much 🫂🫂🫂🫂 idk tu he read krshil ka nhi but i would like jr tu kelas he read tr`;
+  function runTypewriter() {
+    const tw = document.getElementById('typed-letter');
+    if(!tw) return;
+    tw.innerHTML = "";
+    let i = 0;
+    function type() {
+      if (i <= letterText.length) {
+        tw.innerHTML = letterText.substring(0, i)
+          .replace(/\n/g, "<br>");
+        i++;
+        let char = letterText.charAt(i-1);
+        let delay = 30 + Math.random() * 50;
+        if (char === "." || char === ",") delay += 120;
+        setTimeout(type, delay);
+      }
+    }
+    type();
+  }
+  // On load, show first page and typewriter if needed
+  document.addEventListener('DOMContentLoaded', () => {
+    showPage(currentPage);
+    if(PAGES[currentPage]==="letter") runTypewriter();
+  });
+  </script>
+</body>
+</html>
